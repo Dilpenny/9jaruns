@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
+
+const Color primaryColor = Color.fromRGBO(201, 48, 48, 1.0);
+const Color mutedColor = Color.fromRGBO(180, 180, 180, 1.0);
+
 class Env{
+
   void successToast(context, message, {IconData icon = Icons.check_circle}){
     toastification.show(
       icon: Icon(icon),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naijaruns/helpers/env.dart';
+import 'package:naijaruns/pages/upload.dart';
 import 'package:naijaruns/pages/videos.dart';
 import 'package:toastification/toastification.dart';
 
@@ -51,6 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
           label: 'Spotlight'
       ),
       BottomNavigationBarItem(
+          icon: new Icon(Icons.add),
+          label: 'Upload'
+      ),
+      BottomNavigationBarItem(
         icon: new Icon(Icons.chat),
         label: 'Chat',
       ),
@@ -61,9 +66,14 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  List<String> pageTitles = [
+    'Home', 'Spotlight', 'Upload', 'Chat', 'Settings'
+  ];
+  String currentTitle = 'Home';
   void bottomTapped(int index) {
     setState(() {
       bottomSelectedIndex = index;
+      currentTitle = pageTitles[index];
       controller.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
@@ -71,14 +81,16 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _list=<Widget>[
     new Center(child:new VideoPage()),
     new Center(child:new Pages(text: "Page 2",)),
-    new Center(child:new Pages(text: "Page 3",)),
-    new Center(child:new Pages(text: "Page 4",))
+    new Center(child:new UploadPage()),
+    new Center(child:new Pages(text: "Page 4",)),
+    new Center(child:new Pages(text: "Page 5",))
   ];
   int _curr=0;
 
   void pageChanged(int index) {
     setState(() {
       bottomSelectedIndex = index;
+      currentTitle = pageTitles[index];
     });
   }
 
@@ -87,14 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar:AppBar(
-          title: Text("GeeksforGeeks"),
-          backgroundColor: Colors.green,
+          title: Text(currentTitle),
+          backgroundColor: primaryColor,
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.all(3.0),
-              child: Text(
-                "Page: "+(
-                    _curr+1).toString()+"/"+_list.length.toString(),textScaleFactor: 2,),
+              child: IconButton(
+                onPressed: (){
+
+                },
+                icon: Icon(Icons.notifications),
+              ),
             )
           ],),
         body: PageView(
@@ -111,6 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting, // Shifting
+          selectedItemColor: primaryColor,
+          unselectedItemColor: Colors.grey,
           onTap: (index) {
             bottomTapped(index);
           },

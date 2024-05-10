@@ -38,6 +38,8 @@ dependencies:
   flutter_cache_manager: ^3.3.1
   video_player: ^2.7.2
   toastification: ^0.0.3
+  gallery_picker: ^0.4.8
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:
